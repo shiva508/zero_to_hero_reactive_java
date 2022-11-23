@@ -1,8 +1,6 @@
 package com.pool.reactive.flatmap;
 
 import java.time.Duration;
-
-import io.reactivex.functions.Consumer;
 import reactor.core.publisher.Flux;
 
 public class FlatMapClient {
