@@ -19,14 +19,20 @@ public class DoOnClient {
             sink.next(1);
             sink.next(2);
             sink.next(3);
-            sink.error(new IllegalArgumentException("oops!"));
+            // sink.error(new IllegalArgumentException("oops!"));
             sink.complete();
         })
+                .doFirst(() -> System.out.println("Process started"))
+                .doOnComplete(() -> System.out.println("Everithing shoud recevied by now"))
+                .doOnRequest(ks -> System.out.println("doOnREquest :"))
                 .doOnNext(nextValues::add)
                 .doOnEach(signals::add)
                 .doOnSubscribe(subscriptions::add)
                 .doOnError(IllegalArgumentException.class, exceptions::add)
-                .doFinally(finallySignals::add);
+                .doFinally(finallySignals::add)
+                .doOnTerminate(() -> System.out.println("Terminated"))
+                .doOnDiscard(Object.class, dis -> System.out.println("OnDiscord: " + dis))
+                .doOnCancel(() -> System.out.println("doOnCancel"));
         on.subscribe(System.out::println);
         System.out.println("signals:");
         signals.forEach(System.out::println);

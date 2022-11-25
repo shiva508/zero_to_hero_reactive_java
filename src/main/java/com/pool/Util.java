@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import org.reactivestreams.Subscriber;
+
 import com.github.javafaker.Faker;
+import com.pool.reactive.flux.emmitingitem.CustomSubscriber;
 
 import reactor.core.publisher.Flux;
 
@@ -42,5 +45,13 @@ public class Util {
     public static String name() {
         threadSleep(1000);
         return fakerInstance().name().firstName();
+    }
+
+    public static Subscriber<Object> subscriber() {
+        return new CustomSubscriber();
+    }
+
+    public static Subscriber<Object> subscriber(String name) {
+        return new CustomSubscriber(name);
     }
 }
