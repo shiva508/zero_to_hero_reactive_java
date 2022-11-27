@@ -23,7 +23,11 @@ public class CustomSubscriber implements Subscriber<Object> {
 
     @Override
     public void onNext(Object t) {
-        System.out.println(" received: " + t);
+        if (null != this.name) {
+            System.out.println(name + ": received: " + t);
+        } else {
+            System.out.println(" received: " + t);
+        }
 
     }
 
@@ -35,8 +39,7 @@ public class CustomSubscriber implements Subscriber<Object> {
 
     @Override
     public void onComplete() {
-        System.out.println(" Completed");
-
+        System.out.println("Completed");
     }
 
 }

@@ -15,7 +15,7 @@ public class DoOnClient {
         var subscriptions = new ArrayList<Subscription>();
         var exceptions = new ArrayList<Throwable>();
         var finallySignals = new ArrayList<SignalType>();
-        Flux<Integer> on = Flux.<Integer>create(sink -> {
+        Flux.<Integer>create(sink -> {
             sink.next(1);
             sink.next(2);
             sink.next(3);
@@ -32,8 +32,8 @@ public class DoOnClient {
                 .doFinally(finallySignals::add)
                 .doOnTerminate(() -> System.out.println("Terminated"))
                 .doOnDiscard(Object.class, dis -> System.out.println("OnDiscord: " + dis))
-                .doOnCancel(() -> System.out.println("doOnCancel"));
-        on.subscribe(System.out::println);
+                .doOnCancel(() -> System.out.println("doOnCancel"))
+                .subscribe(System.out::println);
         System.out.println("signals:");
         signals.forEach(System.out::println);
     }
