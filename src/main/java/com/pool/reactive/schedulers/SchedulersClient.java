@@ -3,6 +3,8 @@ package com.pool.reactive.schedulers;
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.pool.Util;
+
 import reactor.core.publisher.Flux;
 import reactor.core.scheduler.Schedulers;
 
@@ -21,5 +23,6 @@ public class SchedulersClient {
                 .subscribeOn(Schedulers.immediate());
 
         integerFlux.subscribe(System.out::println);
+        Util.threadSleep(1000);
     }
 }
